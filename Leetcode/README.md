@@ -4,7 +4,7 @@
 
 ----------------------------------
 
-### [ 292. Nim Game ](https://leetcode.com/problems/nim-game/) - easy
+### [ 461. Hamming Distance ](https://leetcode.com/problems/hamming-distance/) - easy
 
 - 문제
 
