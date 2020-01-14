@@ -827,13 +827,17 @@ int solution(vector<vector<int>> routes) {
 vector<int> solution(int n) {
     vector<int> answer;
     int N = 0;
-    
+   
     for(auto i = 0 ; i < n ; ++i){
+    	// 한번 접을때 마다 N*2+1만큼 증가
         N = N * 2 + 1;
         answer.resize(N);
-        
+     
+        // 배열의 가운데는 무조건 0
         int size = answer.size() / 2;
         answer[size] = 0;
+	
+	// 인덱스 i 와 size()-i-1 의 값은 반대
         for(auto j = 0 ; j < size ; ++j){
             answer[answer.size() - j - 1] = answer[j] == 0 ? 1 : 0;
         }
