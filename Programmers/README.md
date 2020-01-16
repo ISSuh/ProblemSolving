@@ -31,6 +31,14 @@
   - BFS, DFS
 
 ```C++
+#include <vector>
+#include <queue>
+#include <algorithm>
+#include <iostream>
+
+using namespace std;
+
+// 전역 변수를 정의할 경우 함수 내에 초기화 코드를 꼭 작성해주세요.
 vector<int> solution(int m, int n, vector<vector<int>> picture) {
     int number_of_area = 0;
     int max_size_of_one_area = 0;
@@ -39,41 +47,40 @@ vector<int> solution(int m, int n, vector<vector<int>> picture) {
     
     for(auto i = 0 ; i < m ; ++i){  
         for(auto j = 0 ; j < n ; ++j){
-	    // 현재 인덱스의 체커가 true 거나 색이 0이면 패스
             if(checker[i][j] || !picture[i][j])
                 continue;
             
             // BFS
             // 저장할 vector의 정보는
-            // {i, j, 현재 색정보}
+            // {i, j, 현재 색정보, 갯수}
             int count = 0;
-            queue<vector<int>> q;
-            q.push({i,j, picture[i][j]});
+            queue<pair<int, int>> q;
+            q.push({i,j});
             
             while(!q.empty()){
-                auto temp = q.front();
+                auto curPic = q.front();
                 q.pop();
                                         
                 // 이미 체크되어있거나, 색이 다르면 패스
-                if(checker[temp[0]][temp[1]] || picture[temp[0]][temp[1]] != temp[2])
+                if(checker[curPic.first][curPic.second] || picture[curPic.first][curPic.second] != picture[i][j])
                     continue;
                 
                 // 현재 인덱스 체크 및 영역 수 증가
-                checker[temp[0]][temp[1]] = true;
+                checker[curPic.first][curPic.second] = true;
                 count++;
                 
                 // 위 검사
-                if(temp[0] + 1 < m)
-                    q.push({temp[0]+1, temp[1], picture[i][j]});
+                if(curPic.first + 1 < m)
+                    q.push({curPic.first+1, curPic.second});
                 // 아래 검사
-                if(temp[0] - 1 >= 0) 
-                    q.push({temp[0]-1, temp[1], picture[i][j]});
+                if(curPic.first - 1 >= 0) 
+                    q.push({curPic.first-1, curPic.second});
                 // 오른쪽 검사
-                if(temp[1] + 1 < n)
-                    q.push({temp[0], temp[1]+1, picture[i][j]});
+                if(curPic.second + 1 < n)
+                    q.push({curPic.first, curPic.second+1});
                 // 왼쪽 검사
-                if(temp[1] - 1 >= 0)
-                    q.push({temp[0], temp[1]-1, picture[i][j]});
+                if(curPic.second - 1 >= 0)
+                    q.push({curPic.first, curPic.second-1});
             }
             
             ++number_of_area;
