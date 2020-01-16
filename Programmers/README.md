@@ -39,12 +39,13 @@ vector<int> solution(int m, int n, vector<vector<int>> picture) {
     
     for(auto i = 0 ; i < m ; ++i){  
         for(auto j = 0 ; j < n ; ++j){
+	    // 현재 인덱스의 체커가 true 거나 색이 0이면 패스
             if(checker[i][j] || !picture[i][j])
                 continue;
             
             // BFS
             // 저장할 vector의 정보는
-            // {i, j, 현재 색정보, 갯수}
+            // {i, j, 현재 색정보}
             int count = 0;
             queue<vector<int>> q;
             q.push({i,j, picture[i][j]});
