@@ -31,14 +31,6 @@
   - BFS, DFS
 
 ```C++
-#include <vector>
-#include <queue>
-#include <algorithm>
-#include <iostream>
-
-using namespace std;
-
-// 전역 변수를 정의할 경우 함수 내에 초기화 코드를 꼭 작성해주세요.
 vector<int> solution(int m, int n, vector<vector<int>> picture) {
     int number_of_area = 0;
     int max_size_of_one_area = 0;
@@ -47,12 +39,12 @@ vector<int> solution(int m, int n, vector<vector<int>> picture) {
     
     for(auto i = 0 ; i < m ; ++i){  
         for(auto j = 0 ; j < n ; ++j){
+            // 현재 인덱스의 체커가 true 거나 색이 0 이면 패스
             if(checker[i][j] || !picture[i][j])
                 continue;
             
             // BFS
-            // 저장할 vector의 정보는
-            // {i, j, 현재 색정보, 갯수}
+            // 저장할 pair의 정보는 {행 index, 열 index}
             int count = 0;
             queue<pair<int, int>> q;
             q.push({i,j});
