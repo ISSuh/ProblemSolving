@@ -55,7 +55,6 @@ int solution(int n, vector<int> money) {
 			item[j] += item[j - i];
         }
     }
-    
     return item[n];
 }
 ```
