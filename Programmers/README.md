@@ -1362,7 +1362,7 @@ int solution(vector<vector<int>> triangle) {
 
 ----------------------------------
 
-### [ 단속카메라 ](https://programmers.co.kr/learn/courses/30/lessons/42884) - lv.3
+### [ 단어 변환 ](https://programmers.co.kr/learn/courses/30/lessons/43163) - lv.3
 
 - 문제
 
