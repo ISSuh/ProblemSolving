@@ -4,6 +4,83 @@
 
 ----------------------------------
 
+### [ 94. Binary Tree Inorder Traversal ](https://leetcode.com/problems/binary-tree-inorder-traversal/) - medium
+
+- 문제
+
+Given a binary tree, return the inorder traversal of its nodes' values.
+Example:
+
+```
+Input: [1,null,2,3]
+   1
+    \
+     2
+    /
+   3
+
+Output: [1,3,2]
+```
+
+- 제한사항
+
+- 입출력 예
+
+- 풀이
+  - Recursive
+
+```C++
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    // PreOrder : root -> left -> right
+    void preOrder(vector<int>& answer, TreeNode* node){
+        if(node == nullptr)
+            return;
+        
+        answer.push_back(node->val);
+        preOrder(answer, node->left);
+        preOrder(answer, node->right);
+    }
+    
+    // InOrder : left -> root -> right
+    void inOrder(vector<int>& answer, TreeNode* node){
+        if(node == nullptr)
+            return;
+        
+        inOrder(answer, node->left);
+        answer.push_back(node->val);
+        inOrder(answer, node->right);
+    }
+    
+    // PostOrder : left -> right -> root
+    void postOrder(vector<int>& answer, TreeNode* node){
+        if(node == nullptr)
+            return;
+        
+        postOrder(answer, node->left);
+        postOrder(answer, node->right);
+        answer.push_back(node->val);
+    }
+    
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> answer;
+        inOrder(answer, root);
+        return answer;
+    }
+};
+```
+
+----------------------------------
+
 ### [ 22. Generate Parentheses ](https://leetcode.com/problems/generate-parentheses/submissions/) - medium
 
 - 문제
