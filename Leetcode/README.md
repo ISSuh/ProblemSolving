@@ -4,6 +4,85 @@
 
 ----------------------------------
 
+### [ 784. Letter Case Permutation ](https://leetcode.com/problems/letter-case-permutation/) - easy
+
+- 문제
+
+Given a string S, we can transform every letter individually to be lowercase or uppercase to create another string.  Return a list of all possible strings we could create.
+
+- 제한사항
+	- S will be a string with length between 1 and 12.
+	- S will consist only of letters or digits.
+
+- 입출력 예
+
+```
+Examples:
+Input: S = "a1b2"
+Output: ["a1b2", "a1B2", "A1b2", "A1B2"]
+
+Input: S = "3z4"
+Output: ["3z4", "3Z4"]
+
+Input: S = "12345"
+Output: ["12345"]
+```
+
+- 풀이
+  - Recursive, BackTracking
+
+```C++
+class Solution {
+public:
+    void backTracking(vector<string>& ans, string& s, string& curS, int curIndex){
+        // index가 문자열만큼 커지면 리턴
+        if(curIndex == s.size()){
+            ans.push_back(curS);
+            return;
+        }
+        
+        // 다음 인덱스
+        int nextIndex = curIndex + 1;
+                
+        // 문자열의 문자중 숫자면 현재까지 문자열에 그대로 저장
+        if('0' <= s[curIndex] && s[curIndex] <= '9'){            
+            curS.push_back(s[curIndex]);
+            backTracking(ans, s, curS, nextIndex);
+        }
+        else{
+            // 현재까지의 문자열에 현재 문자 그대로인 문자조합을 위해
+            // 문자 그대로 저장
+            string str = curS;
+            str.push_back(s[curIndex]);
+            backTracking(ans, s, str, nextIndex);
+            
+            // 현재 문자가 소문자일때 대문자로 바꿔 현재까지의 문자열에 저장
+            if('a' <= s[curIndex] && s[curIndex] <= 'z'){
+                char upper = toupper(s[curIndex]);
+                curS.push_back(upper);
+                backTracking(ans, s, curS, nextIndex);
+            }
+            // 현재 문자가 대문자일때 소문자로 바꿔 현재까지의 문자열에 저장
+            else{
+                char lower = tolower(s[curIndex]);
+                curS.push_back(lower);
+                backTracking(ans, s, curS, nextIndex);
+            }
+            
+        }
+    }
+    
+    vector<string> letterCasePermutation(string S) {
+        vector<string> answer;
+        string temp = "";
+        backTracking(answer, S, temp, 0);
+        return answer;
+    }
+};
+```
+
+----------------------------------
+
 ### [ 39. Combination Sum ](https://leetcode.com/problems/combination-sum/) - medium
 
 - 문제
