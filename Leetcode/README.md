@@ -2,6 +2,88 @@
 
 ## 2020
 
+
+----------------------------------
+
+### [ 230. Kth Smallest Element in a BST ](https://leetcode.com/problems/kth-smallest-element-in-a-bst/) - medium
+
+#### 문제
+
+Given a binary search tree, write a function kthSmallest to find the kth smallest element in it.
+
+#### 제한사항
+  - You may assume k is always valid, 1 ≤ k ≤ BST's total elements.
+
+#### 입출력 예
+
+```
+Example 1:
+Input: root = [3,1,4,null,2], k = 1
+   3
+  / \
+ 1   4
+  \
+   2
+Output: 1
+
+Example 2:
+Input: root = [5,3,6,2,4,null,null,1], k = 3
+       5
+      / \
+     3   6
+    / \
+   2   4
+  /
+ 1
+Output: 3
+
+```
+
+#### 풀이
+  - Divide and Conquer, Heap, Sort
+
+```C++
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        set<int> s;
+        queue<TreeNode*> q;
+        q.push(root);
+        
+        // BFS로 전체 노드의 val 값을 저장
+        while(!q.empty()){
+            auto node = q.front();
+            q.pop();
+            
+            s.insert(node->val);
+            
+            if(node->left)
+                q.push(node->left);
+            
+            if(node->right)
+                q.push(node->right);
+        }
+        
+        // k번째 작은수 검색
+        auto answer = s.begin();
+        for(auto i = 0 ; i < k - 1 ; ++i){
+            ++answer;
+        }
+        
+        return *answer;
+    }
+};
+```
+
 ----------------------------------
 
 ### [ 215. Kth Largest Element in an Array ](https://leetcode.com/problems/kth-largest-element-in-an-array/) - medium
@@ -17,12 +99,10 @@ Find the kth largest element in an unsorted array. Note that it is the kth large
 
 ```
 Example 1:
-
 Input: [3,2,1,5,6,4] and k = 2
 Output: 5
 
 Example 2:
-
 Input: [3,2,3,1,2,4,5,5,6] and k = 4
 Output: 4
 ```
@@ -58,12 +138,10 @@ You may assume that the array is non-empty and the majority element always exist
 
 ```
 Example 1:
-
 Input: [3,2,3]
 Output: 3
 
 Example 2:
-
 Input: [2,2,1,1,1,2,2]
 Output: 2
 ```
@@ -105,25 +183,20 @@ Given a string, find the length of the longest substring without repeating chara
 
 ```
 Example 1:
-
 Input: "abcabcbb"
 Output: 3 
 Explanation: The answer is "abc", with the length of 3. 
 
 Example 2:
-
 Input: "bbbbb"
 Output: 1
 Explanation: The answer is "b", with the length of 1.
 
 Example 3:
-
 Input: "pwwkew"
 Output: 3
 Explanation: The answer is "wke", with the length of 3. 
              Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
-
-
 ```
 
 - 풀이
@@ -183,13 +256,11 @@ Given a positive integer n, find the least number of perfect square numbers (for
 
 ```
 Example 1:
-
 Input: n = 12
 Output: 3 
 Explanation: 12 = 4 + 4 + 4.
 
 Example 2:
-
 Input: n = 13
 Output: 2
 Explanation: 13 = 4 + 9.
@@ -258,7 +329,6 @@ Above is a 7 x 3 grid. How many possible unique paths are there?
 
 ```
 Example 1:
-
 Input: m = 3, n = 2
 Output: 3
 Explanation:
@@ -268,7 +338,6 @@ From the top-left corner, there are a total of 3 ways to reach the bottom-right 
 3. Down -> Right -> Right
 
 Example 2:
-
 Input: m = 7, n = 3
 Output: 28
 ```
