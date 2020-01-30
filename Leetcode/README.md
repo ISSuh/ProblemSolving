@@ -4,6 +4,83 @@
 
 ----------------------------------
 
+### [ 590. N-ary Tree Postorder Traversal ](https://leetcode.com/problems/n-ary-tree-postorder-traversal/) - easy
+
+#### 문제
+
+Given an n-ary tree, return the postorder traversal of its nodes' values.
+
+Nary-Tree input serialization is represented in their level order traversal, each group of children is separated by the null value (See examples).
+
+#### 제한사항
+  - The height of the n-ary tree is less than or equal to 1000
+  - The total number of nodes is between [0, 10^4]
+
+#### 입출력 예
+
+![example](https://assets.leetcode.com/uploads/2018/10/12/narytreeexample.png)
+
+```
+Input: root = [1,null,3,2,4,null,5,6]
+Output: [5,6,3,2,4,1]
+```
+
+![example](https://assets.leetcode.com/uploads/2019/11/08/sample_4_964.png)
+
+```
+Input: root = [1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14]
+Output: [2,6,14,11,7,3,12,8,4,13,9,10,5,1]
+```
+
+#### 풀이
+  - Tree
+
+```C++
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    vector<Node*> children;
+
+    Node() {}
+
+    Node(int _val) {
+        val = _val;
+    }
+
+    Node(int _val, vector<Node*> _children) {
+        val = _val;
+        children = _children;
+    }
+};
+*/
+class Solution {
+public:
+    vector<int> postorder(Node* root) {
+        if(root == nullptr)
+            return {};
+        
+        vector<int> item;
+
+        for(auto i = 0 ; i < root->children.size() ; ++i){
+            // 재귀로 Tree PostOrder 구현
+            auto temp = postorder(root->children[i]);
+            
+    	    // 재귀적으로 PreOrder로 조회한 자식노드들을 현재 vector에 뒤에 붙임
+            item.insert(item.end(), temp.begin(), temp.end());            
+        }
+        
+        // 자식 노드를 모두 조회한 후, 현재 노드 조회
+        item.push_back(root->val);
+        
+        return item;
+    }
+};
+```
+
+----------------------------------
+
 ### [ 589. N-ary Tree Preorder Traversal ](https://leetcode.com/problems/n-ary-tree-preorder-traversal/) - easy
 
 #### 문제
@@ -59,11 +136,11 @@ public:
         
         vector<int> item;
         
-	// 현재 val 추가
-	// 재귀로 Tree PreOrder 구현
+	// 자식노드 조회하기전 현재 노드 조회
         item.push_back(root->val);
         for(auto i = 0 ; i < root->children.size() ; ++i){
-            auto temp = preorder(root->children[i]);
+            // 재귀로 Tree PreOrder 구현
+	    auto temp = preorder(root->children[i]);
 	    
 	    // 재귀적으로 PreOrder로 조회한 자식노드들을 현재 vector에 뒤에 붙임
             item.insert(item.end(), temp.begin(), temp.end());
