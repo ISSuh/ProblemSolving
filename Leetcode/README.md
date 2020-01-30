@@ -4,6 +4,60 @@
 
 ----------------------------------
 
+### [ 1207. Unique Number of Occurrences ](https://leetcode.com/problems/unique-number-of-occurrences/) - easy
+
+#### 문제
+
+Given an array of integers arr, write a function that returns true if and only if the number of occurrences of each value in the array is unique.
+
+#### 제한사항
+  - 1 <= arr.length <= 1000
+  - -1000 <= arr[i] <= 1000
+
+
+#### 입출력 예
+
+```
+Example 1:
+Input: arr = [1,2,2,1,1,3]
+Output: true
+Explanation: The value 1 has 3 occurrences, 2 has 2 and 3 has 1. No two values have the same number of occurrences.
+
+Example 2:
+Input: arr = [1,2]
+Output: false
+
+Example 3:
+Input: arr = [-3,0,1,-3,1,1,1,-3,10,0]
+Output: true
+
+```
+
+#### 풀이
+  - Hash
+
+```C++
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+        map<int, int> m;
+        set<int> s;
+        
+        for(auto& i : arr){
+            ++m[i];
+        }
+        
+        for(auto i = m.begin() ; i != m.end() ; ++i){
+            s.insert(i->second);
+        }
+                
+        return s.size() == m.size();
+    }
+};
+```
+
+----------------------------------
+
 ### [ 289. Game of Life ](https://leetcode.com/problems/game-of-life/) - medium
 
 #### 문제
